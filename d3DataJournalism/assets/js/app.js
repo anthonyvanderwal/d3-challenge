@@ -16,15 +16,13 @@ var chartHeight = svgHeight - margin.top - margin.bottom;
 
 // append svg area to 'scatter' div make chart responsive
 var svg = d3.select('#scatter')
-  .append('svg')
-  .attr('viewBox', `0 0 ${svgWidth} ${svgHeight}`)
-  .attr('preserveAspectRatio', 'xMidYMid meet');
-
-
+    .append('svg')
+    .attr('viewBox', `0 0 ${svgWidth} ${svgHeight}`)
+    .attr('preserveAspectRatio', 'xMidYMid meet');
 
 // Append a group area with margins
 var chartGroup = svg.append('g')
-  .attr('transform', `translate(${margin.left}, ${margin.top})`);  
+    .attr('transform', `translate(${margin.left}, ${margin.top})`);  
 
 // Load data from miles-walked-this-month.csv
 d3.csv('./assets/data/data.csv').then( censusData => {
@@ -34,22 +32,22 @@ d3.csv('./assets/data/data.csv').then( censusData => {
   
     // Cast strings to a number
     censusData.forEach( d => {
-      d.age = +d.age;
-      d.ageMoe = +d.ageMoe;
-      d.healthcare = +d.healthcare;
-      d.healthcareHigh = +d.healthcareHigh;
-      d.healthcareLow = +d.healthcareLow;
-      d.id = +d.id;
-      d.income = +d.income;
-      d.incomeMoe = +d.incomeMoe;
-      d.obesity = +d.obesity;
-      d.obesityHigh = +d.obesityHigh;
-      d.obesityLow = +d.obesityLow;
-      d.poverty = +d.poverty;
-      d.povertyMoe = +d.povertyMoe;
-      d.smokes = +d.smokes;
-      d.smokesHigh = +d.smokesHigh;
-      d.smokesLow = +d.smokesLow;
+        d.age = +d.age;
+        d.ageMoe = +d.ageMoe;
+        d.healthcare = +d.healthcare;
+        d.healthcareHigh = +d.healthcareHigh;
+        d.healthcareLow = +d.healthcareLow;
+        d.id = +d.id;
+        d.income = +d.income;
+        d.incomeMoe = +d.incomeMoe;
+        d.obesity = +d.obesity;
+        d.obesityHigh = +d.obesityHigh;
+        d.obesityLow = +d.obesityLow;
+        d.poverty = +d.poverty;
+        d.povertyMoe = +d.povertyMoe;
+        d.smokes = +d.smokes;
+        d.smokesHigh = +d.smokesHigh;
+        d.smokesLow = +d.smokesLow;
     });  
     
     // x scale with 5% padding
@@ -89,16 +87,13 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         .attr('cx', d => xLinearScale(d.income) )
         .attr('cy', d => yLinearScale(d.obesity))
         .attr('r', '12');
-        // .attr('fill', 'darkblue')
-        // .attr('opacity', '0.6');
-
+        
     chartGroup.selectAll('text')
         .data(censusData)
         .enter()
         .append('text')
         .text( d => d.abbr )
-        .attr('class', 'aText active inactive')
-        .attr('text-anchor', 'middle')
+        .attr('class', 'aText active inactive stateText')
         .attr('dominant-baseline', 'central')
         .attr('x', d => xLinearScale(d.income) )
         .attr('y', d => yLinearScale(d.obesity))
@@ -108,11 +103,23 @@ d3.csv('./assets/data/data.csv').then( censusData => {
     // Append an SVG group element to the SVG area, create the left axis inside of it, and give it a class of 'axis'
     chartGroup.append('g')
         .attr('class', 'axis')
-        .call(leftAxis);
+        .call(leftAxis)
+        .append('text')
+        .attr("fill", "black")
+        .attr('font-weight', 'bold')
+        .attr('text-anchor', 'middle')
+        .attr("transform", `translate(-35, ${chartHeight * 0.5}) rotate(-90)` )
+        .text('Obesity [%]');
 
     chartGroup.append('g')
         .attr('class', 'axis')
         .attr('transform', `translate(0, ${chartHeight})`)
-        .call(bottomAxis);
+        .call(bottomAxis)
+        .append('text')
+        .attr("fill", "black")
+        .attr('font-weight', 'bold')
+        .attr('text-anchor', 'middle')
+        .attr("transform", `translate(${chartWidth * 0.5}, 35)` )
+        .text('Income [$]');
 
 });

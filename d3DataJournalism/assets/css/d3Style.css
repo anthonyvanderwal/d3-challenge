@@ -44,12 +44,15 @@
 .d3-tip {
   padding: 4px;
   font-size: 0.75rem;
-  /* line-height: 1rem; */
   color: #fff;
   text-align: center;
   text-transform: capitalize;
   background: rgba(0, 0, 0, 0.8);
   border-radius: 4px;
+}
+
+.axis {
+  font-size: 0.8rem;
 }
 
 /* Mobile Rules */
