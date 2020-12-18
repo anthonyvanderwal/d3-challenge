@@ -1,36 +1,36 @@
-// svg area, margins, & chart area
+// svg nominal area
 var svgWidth = 800;
 var svgHeight = 500;
 
+// margin arounbd chart area
 var margin = {
-    top: 50,
-    right: 50,
-    bottom: 50,
-    left: 50
+    top: 80,
+    right: 80,
+    bottom: 80,
+    left: 80
 };
 
+// define chart dimensions inside margin
 var chartWidth = svgWidth - margin.left - margin.right;
 var chartHeight = svgHeight - margin.top - margin.bottom;
 
-// console.log(svgHeight);
-
-// append svg area to 'scatter' div make chart responsive
+// append svg area to 'scatter' div and make chart responsive
 var svg = d3.select('#scatter')
     .append('svg')
     .attr('viewBox', `0 0 ${svgWidth} ${svgHeight}`)
     .attr('preserveAspectRatio', 'xMidYMid meet');
 
-// Append a group area with margins
+// append group area with margins
 var chartGroup = svg.append('g')
     .attr('transform', `translate(${margin.left}, ${margin.top})`);  
 
-// Load data from miles-walked-this-month.csv
+// load data from csv
 d3.csv('./assets/data/data.csv').then( censusData => {
 
-    // Print the milesData
+    // log the censusData
     console.log(censusData);
   
-    // Cast strings to a number
+    // cast strings to a number
     censusData.forEach( d => {
         d.age = +d.age;
         d.ageMoe = +d.ageMoe;
@@ -50,7 +50,7 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         d.smokesLow = +d.smokesLow;
     });  
     
-    // x scale with 5% padding
+    // x-scale - includes 5% padding
     var xLinearScale = d3.scaleLinear()
         .domain([
             d3.min( censusData, d => d.income ) * 0.95, 
@@ -58,7 +58,7 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         ])
         .range([0, chartWidth]);
 
-    // y scale with 5% padding
+    // y-scale - includes 5% padding
     var yLinearScale = d3.scaleLinear()
         .domain([
             d3.min( censusData, d => d.obesity ) * 0.95, 
@@ -66,7 +66,7 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         ])
         .range([chartHeight, 0]);
 
-    // Functions for chart axes relative to x/y scale
+    // chart axes relative to x/y scale
     var bottomAxis = d3.axisBottom(xLinearScale);
     var leftAxis = d3.axisLeft(yLinearScale);
 
@@ -78,7 +78,7 @@ d3.csv('./assets/data/data.csv').then( censusData => {
 
     svg.call(d3Tip);
 
-    // Append an SVG path and plot its points using the line function, give the path a class of line
+    // append SVG circles
     chartGroup.selectAll('circle')
         .data(censusData)
         .enter()
@@ -87,7 +87,8 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         .attr('cx', d => xLinearScale(d.income) )
         .attr('cy', d => yLinearScale(d.obesity))
         .attr('r', '12');
-        
+    
+    // append SVG text
     chartGroup.selectAll('text')
         .data(censusData)
         .enter()
@@ -100,7 +101,7 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         .on('mouseover', d3Tip.show)
         .on('mouseout', d3Tip.hide);
 
-    // Append an SVG group element to the SVG area, create the left axis inside of it, and give it a class of 'axis'
+    // append SVG group with left axis
     chartGroup.append('g')
         .attr('class', 'axis')
         .call(leftAxis)
@@ -108,9 +109,10 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         .attr("fill", "black")
         .attr('font-weight', 'bold')
         .attr('text-anchor', 'middle')
-        .attr("transform", `translate(-35, ${chartHeight * 0.5}) rotate(-90)` )
+        .attr("transform", `translate(${-margin.left * 0.5}, ${chartHeight * 0.5}) rotate(-90)` )
         .text('Obesity [%]');
 
+    // append SVG group with bottom axis
     chartGroup.append('g')
         .attr('class', 'axis')
         .attr('transform', `translate(0, ${chartHeight})`)
@@ -119,7 +121,7 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         .attr("fill", "black")
         .attr('font-weight', 'bold')
         .attr('text-anchor', 'middle')
-        .attr("transform", `translate(${chartWidth * 0.5}, 35)` )
+        .attr("transform", `translate(${chartWidth * 0.5}, ${margin.bottom * 0.5})` )
         .text('Income [$]');
 
 });
