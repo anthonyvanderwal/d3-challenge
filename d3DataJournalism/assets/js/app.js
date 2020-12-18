@@ -50,7 +50,7 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         d.smokesLow = +d.smokesLow;
     });  
     
-    // x-scale - add 5% padding each side
+    // x-scale - 5% padding left & right
     var xLinearScale = d3.scaleLinear()
         .domain([
             d3.min( censusData, d => d.income ) * 0.95, 
@@ -58,7 +58,7 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         ])
         .range([0, chartWidth]);
 
-    // y-scale - add 5% padding top & bottom
+    // y-scale - 5% padding top & bottom
     var yLinearScale = d3.scaleLinear()
         .domain([
             d3.min( censusData, d => d.obesity ) * 0.95, 
@@ -94,7 +94,7 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         .enter()
         .append('text')
         .text( d => d.abbr )
-        .attr('class', 'aText active inactive stateText')
+        .attr('class', 'aText  stateText active inactive')
         .attr('dominant-baseline', 'central')
         .attr('x', d => xLinearScale(d.income) )
         .attr('y', d => yLinearScale(d.obesity))
