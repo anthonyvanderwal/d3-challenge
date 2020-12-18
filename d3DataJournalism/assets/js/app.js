@@ -14,7 +14,7 @@ var margin = {
 var chartWidth = svgWidth - margin.left - margin.right;
 var chartHeight = svgHeight - margin.top - margin.bottom;
 
-// append svg area to 'scatter' div and make chart responsive
+// append svg area to the 'scatter' div and make chart responsive
 var svg = d3.select('#scatter')
     .append('svg')
     .attr('viewBox', `0 0 ${svgWidth} ${svgHeight}`)
@@ -24,13 +24,13 @@ var svg = d3.select('#scatter')
 var chartGroup = svg.append('g')
     .attr('transform', `translate(${margin.left}, ${margin.top})`);  
 
-// load data from csv
+// load csv data
 d3.csv('./assets/data/data.csv').then( censusData => {
 
     // log the censusData
     console.log(censusData);
   
-    // cast strings to a number
+    // cast strings to number
     censusData.forEach( d => {
         d.age = +d.age;
         d.ageMoe = +d.ageMoe;
@@ -50,7 +50,7 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         d.smokesLow = +d.smokesLow;
     });  
     
-    // x-scale - includes 5% padding
+    // x-scale - add 5% padding each side
     var xLinearScale = d3.scaleLinear()
         .domain([
             d3.min( censusData, d => d.income ) * 0.95, 
@@ -58,7 +58,7 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         ])
         .range([0, chartWidth]);
 
-    // y-scale - includes 5% padding
+    // y-scale - add 5% padding top & bottom
     var yLinearScale = d3.scaleLinear()
         .domain([
             d3.min( censusData, d => d.obesity ) * 0.95, 
@@ -106,10 +106,10 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         .attr('class', 'axis')
         .call(leftAxis)
         .append('text')
-        .attr("fill", "black")
+        .attr('fill', 'black')
         .attr('font-weight', 'bold')
         .attr('text-anchor', 'middle')
-        .attr("transform", `translate(${-margin.left * 0.5}, ${chartHeight * 0.5}) rotate(-90)` )
+        .attr('transform', `translate(${-margin.left * 0.5}, ${chartHeight * 0.5}) rotate(-90)` )
         .text('Obesity [%]');
 
     // append SVG group with bottom axis
@@ -118,10 +118,10 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         .attr('transform', `translate(0, ${chartHeight})`)
         .call(bottomAxis)
         .append('text')
-        .attr("fill", "black")
+        .attr('fill', 'black')
         .attr('font-weight', 'bold')
         .attr('text-anchor', 'middle')
-        .attr("transform", `translate(${chartWidth * 0.5}, ${margin.bottom * 0.5})` )
+        .attr('transform', `translate(${chartWidth * 0.5}, ${margin.bottom * 0.5})` )
         .text('Income [$]');
 
 });
