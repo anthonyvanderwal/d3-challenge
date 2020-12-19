@@ -24,12 +24,10 @@ var svg = d3.select('#scatter')
 var chartGroup = svg.append('g')
     .attr('transform', `translate(${margin.left}, ${margin.top})`);  
 
-// -----------------------------------------------
-
-// initial params
+// initial plot parameter
 var chosenXAxis = 'income';
 
-// fupdate x-scale upon click on axis label - 5% padding
+// update x-scale on click - 5% padding
 function xScale(censusData, chosenXAxis) {
     var xLinearScale = d3.scaleLinear()
         .domain([
@@ -41,7 +39,7 @@ function xScale(censusData, chosenXAxis) {
     return xLinearScale;
 }
 
-// update xAxis var upon click on axis label
+// update xAxis var on click
 function renderAxes(newXScale, xAxis) {
     var bottomAxis = d3.axisBottom(newXScale);
     xAxis.transition()
@@ -50,7 +48,7 @@ function renderAxes(newXScale, xAxis) {
     return xAxis;
 }
 
-// update circles group with a transition to new circles
+// update circles group include a transition
 function renderCircles(circlesGroup, newXScale, chosenXAxis) {
     circlesGroup.transition()
         .duration(1000)
@@ -58,7 +56,7 @@ function renderCircles(circlesGroup, newXScale, chosenXAxis) {
     return circlesGroup;
 }
 
-// update text group with a transition to new circles
+// update text group include a transition
 function renderText(textGroup, newXScale, chosenXAxis) {
     textGroup.transition()
         .duration(1000)
@@ -66,7 +64,7 @@ function renderText(textGroup, newXScale, chosenXAxis) {
     return textGroup;
 }
 
-// updating text group with new tooltip
+// update text group with new tooltip data
 function updateToolTip(chosenXAxis, textGroup) {
     var label;
     if ( chosenXAxis === 'income' ) { label = 'Income: '; }
@@ -83,8 +81,6 @@ function updateToolTip(chosenXAxis, textGroup) {
     textGroup.on('mouseover', d3Tip.show).on('mouseout', d3Tip.hide);
     return textGroup;
 }
-
-// -----------------------------------------------
 
 // load csv data
 d3.csv('./assets/data/data.csv').then( (censusData, err) => {
@@ -118,7 +114,7 @@ d3.csv('./assets/data/data.csv').then( (censusData, err) => {
     var bottomAxis = d3.axisBottom(xLinearScale);
     var leftAxis = d3.axisLeft(yLinearScale);
 
-    // append SVG circles
+    // append circles to chart group
     var circlesGroup = chartGroup.selectAll('circle')
         .data(censusData)
         .enter()
@@ -128,7 +124,7 @@ d3.csv('./assets/data/data.csv').then( (censusData, err) => {
         .attr('cy', d => yLinearScale(d.obesity))
         .attr('r', '12');
 
-    // // append SVG text
+    // // append text to chart group
     var textGroup = chartGroup.selectAll('text')
         .data(censusData)
         .enter()
@@ -139,10 +135,11 @@ d3.csv('./assets/data/data.csv').then( (censusData, err) => {
         .attr('x', d => xLinearScale(d[chosenXAxis]) )
         .attr('y', d => yLinearScale(d.obesity));
     
-    // group for two x-axis labels
+    // two x-axis labels
     var labelsGroup = chartGroup.append('g')
         .attr('transform', `translate(${chartWidth * 0.5}, ${chartHeight + (margin.bottom / 4)})`);
-
+    
+    // x-axis for income
     var incomeLabel = labelsGroup.append('text')
         .attr('x', 0)
         .attr('y', margin.bottom / 4)
@@ -150,6 +147,7 @@ d3.csv('./assets/data/data.csv').then( (censusData, err) => {
         .attr('class', 'active')
         .text('Income [$]');
 
+    // x-axis for age
     var ageLabel = labelsGroup.append('text')
         .attr('x', 0)
         .attr('y', margin.bottom / 2)
@@ -157,7 +155,13 @@ d3.csv('./assets/data/data.csv').then( (censusData, err) => {
         .attr('class', 'inactive')
         .text('Age [years]');
 
-    // append SVG group with left axis
+    // append x-axis to chart group
+    var xAxis = chartGroup.append('g')
+        .attr('class', 'axis')
+        .attr('transform', `translate(0, ${chartHeight})`)
+        .call(bottomAxis);
+
+    // append y-axis to chart group
     chartGroup.append('g')
         .attr('class', 'axis')
         .call(leftAxis)
@@ -166,13 +170,7 @@ d3.csv('./assets/data/data.csv').then( (censusData, err) => {
         .attr('transform', `translate(${-margin.left * 0.5}, ${chartHeight * 0.5}) rotate(-90)` )
         .text('Obesity [%]');
 
-    // append SVG group with bottom axis
-    var xAxis = chartGroup.append('g')
-        .attr('class', 'axis')
-        .attr('transform', `translate(0, ${chartHeight})`)
-        .call(bottomAxis);
-
-    // updateToolTip function above csv import
+    // updateToolTip for initial plot
     var textGroup = updateToolTip(chosenXAxis, textGroup);
 
     // x axis labels event listener
@@ -180,27 +178,28 @@ d3.csv('./assets/data/data.csv').then( (censusData, err) => {
     
         // get value of selection
         var value = d3.select(this).attr('value');
+        
+        // if not current selection then update
         if (value !== chosenXAxis) {
 
-            // replaces chosenXAxis with value
+            // replace chosenXAxis
             chosenXAxis = value;
-            console.log(chosenXAxis);
+            // console.log(chosenXAxis);
 
-            // functions here found above csv import
-            // updates x scale for new data
+            // update x-scale
             xLinearScale = xScale(censusData, chosenXAxis);
 
             // updates x axis with transition
             xAxis = renderAxes(xLinearScale, xAxis);
 
-            // updates circles and text with new x values
+            // update circles and text positions
             circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
             textGroup = renderText(textGroup, xLinearScale, chosenXAxis);
 
-            // updates tooltips with new info
+            // update tooltips
             textGroup = updateToolTip(chosenXAxis, textGroup);
 
-            // changes classes to change bold text
+            // bold text
             if (chosenXAxis === 'age') {
                 ageLabel.attr('class', 'active');
                 incomeLabel.attr('class', 'inactive');
