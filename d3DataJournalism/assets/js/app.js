@@ -89,7 +89,7 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         .data(censusData)
         .enter()
         .append('circle')
-        .attr('class', 'stateCircle')
+        .attr('class', 'stateCircle active inactive')
         .attr('cx', d => xLinearScale(d.income) )
         .attr('cy', d => yLinearScale(d.obesity))
         .attr('r', '12');
@@ -100,7 +100,7 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         .enter()
         .append('text')
         .text( d => d.abbr )
-        .attr('class', 'aText  stateText active inactive')
+        .attr('class', 'aText stateText active inactive')
         .attr('dominant-baseline', 'central')
         .attr('x', d => xLinearScale(d.income) )
         .attr('y', d => yLinearScale(d.obesity))
@@ -113,7 +113,7 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         .call(leftAxis)
         .append('text')
         .attr('class', 'axis-title')
-        .attr('transform', `translate(${-margin.left * 0.5}, ${chartHeight * 0.5}) rotate(-90)` )
+        .attr('transform', `translate(${-margin.left * 0.5}, ${(chartHeight - margin.top) * 0.5}) rotate(-90)` )
         .text('Obesity [%]');
 
     // append SVG group with bottom axis
