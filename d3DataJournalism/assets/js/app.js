@@ -57,7 +57,7 @@ d3.csv('./assets/data/data.csv').then( censusData => {
             d3.max( censusData, d => d.income ) * 1.05
         ])
         .range([0, chartWidth]);
-
+        
     // y-scale - 5% padding top & bottom
     var yLinearScale = d3.scaleLinear()
         .domain([
