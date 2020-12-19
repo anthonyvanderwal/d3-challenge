@@ -56,7 +56,8 @@ d3.csv('./assets/data/data.csv').then( censusData => {
             d3.min( censusData, d => d.income ) * 0.95, 
             d3.max( censusData, d => d.income ) * 1.05
         ])
-        .range([0, chartWidth]);
+        .range([0, chartWidth])
+        .nice();
         
     // y-scale - 5% padding top & bottom
     var yLinearScale = d3.scaleLinear()
@@ -64,7 +65,8 @@ d3.csv('./assets/data/data.csv').then( censusData => {
             d3.min( censusData, d => d.obesity ) * 0.95, 
             d3.max( censusData, d => d.obesity ) * 1.05
         ])
-        .range([chartHeight, 0]);
+        .range([chartHeight, 0])
+        .nice();
 
     // chart axes relative to x/y scale
     var bottomAxis = d3.axisBottom(xLinearScale);
