@@ -1,6 +1,6 @@
 // svg nominal area
-var svgWidth = 800;
-var svgHeight = 500;
+var svgWidth = 1000;
+var svgHeight = 750;
 
 // margin arounbd chart area
 var margin = {
@@ -74,7 +74,11 @@ d3.csv('./assets/data/data.csv').then( censusData => {
     var d3Tip = d3.tip()
         .attr('class', 'd3-tip')
         .offset([40, -65])
-        .html( d => `<b>${d.state}</b><br>Income: $${d.income.toLocaleString()}<br>Obesity: ${d.obesity}%` );
+        .html( d => `
+            <b>${d.state}</b><br>
+            Income: $${d.income.toLocaleString()}<br>
+            Obesity: ${d.obesity}%
+        `);
 
     svg.call(d3Tip);
 
@@ -106,9 +110,7 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         .attr('class', 'axis')
         .call(leftAxis)
         .append('text')
-        .attr('fill', 'black')
-        .attr('font-weight', 'bold')
-        .attr('text-anchor', 'middle')
+        .attr('class', 'axis-title')
         .attr('transform', `translate(${-margin.left * 0.5}, ${chartHeight * 0.5}) rotate(-90)` )
         .text('Obesity [%]');
 
@@ -118,9 +120,7 @@ d3.csv('./assets/data/data.csv').then( censusData => {
         .attr('transform', `translate(0, ${chartHeight})`)
         .call(bottomAxis)
         .append('text')
-        .attr('fill', 'black')
-        .attr('font-weight', 'bold')
-        .attr('text-anchor', 'middle')
+        .attr('class', 'axis-title')
         .attr('transform', `translate(${chartWidth * 0.5}, ${margin.bottom * 0.5})` )
         .text('Income [$]');
 
