@@ -23,14 +23,14 @@
 **Website for small screen**  
 <kbd><img style="margin-left:0px;border:0px solid blue;" 
      height='300' title="small"
-     src="./d3DataJournalismBonus/assets/img/bb-small.png" /></kbd>
+     src="./d3DataJournalismBonus/assets/img/d3-small.png" /></kbd>
 
 **Website for medium screen**  
 <kbd><img style="margin-left:0px;border:0px solid blue;" 
      height='300' title="medium"
-     src="./d3DataJournalismBonus/assets/img/bb-medium.png" /></kbd>
+     src="./d3DataJournalismBonus/assets/img/d3-medium.png" /></kbd>
 
 **Website for large screen**  
 <kbd><img style="margin-left:0px;border:0px solid blue;" 
      height='300' title="large"
-     src="./d3DataJournalismBonus/assets/img/bb-large.png" /></kbd>
+     src="./d3DataJournalismBonus/assets/img/d3-large.png" /></kbd>
