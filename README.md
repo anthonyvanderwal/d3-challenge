@@ -9,14 +9,14 @@
 - [website](https://anthonyvanderwal.github.io/d3-challenge/d3DataJournalism/) deployed on GitHub Pages.
 - [javascript](./d3DataJournalism/assets/js/app.js) app to render and filter table.
 - [html](./d3DataJournalism/index.html) template for website.
-- [css](./d3DataJournalism/assets/css/style.css) with style for template.
+- [css](./d3DataJournalism/assets/css/d3Style.css) with style for template.
 
 ---
 ### Bonus: Impress the Boss
 - [website](https://anthonyvanderwal.github.io/d3-challenge/d3DataJournalismBonus/) deployed on GitHub Pages.
 - [javascript](./d3DataJournalismBonus/assets/js/app.js) app to render and filter table.
 - [html](./d3DataJournalismBonus/index.html) template for website.
-- [css](./d3DataJournalismBonus/assets/css/style.css) with style for template.
+- [css](./d3DataJournalismBonus/assets/css/d3Style.css) with style for template.
 
 ---
 ### Screenshots
