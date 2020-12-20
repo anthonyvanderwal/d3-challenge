@@ -5,25 +5,32 @@
 <br><br>
 
 ---
-### Dashboard
-- [website](https://anthonyvanderwal.github.io/plotly-challenge/BellyButtons/) deployed on GitHub Pages.
-- [javascript](./BellyButtons/static/js/app.js) app to render and filter table.
-- [html](./BellyButtons/index.html) template for website.
-- [css](./BellyButtons/static/css/style.css) with style for template.
+### Required: D3 Dabbler
+- [website](https://anthonyvanderwal.github.io/d3-challenge/d3DataJournalism/) deployed on GitHub Pages.
+- [javascript](./d3DataJournalismBonus/assets/js/app.js) app to render and filter table.
+- [html](./d3DataJournalismBonus/index.html) template for website.
+- [css](./d3DataJournalismBonus/assets/css/style.css) with style for template.
+
+---
+### Bonus: Impress the Boss
+- [website](https://anthonyvanderwal.github.io/d3-challenge/d3DataJournalismBonus/) deployed on GitHub Pages.
+- [javascript](./d3DataJournalismBonus/assets/js/app.js) app to render and filter table.
+- [html](./d3DataJournalismBonus/index.html) template for website.
+- [css](./d3DataJournalismBonus/assets/css/style.css) with style for template.
 
 ---
 ### Screenshots
 **Website for small screen**  
 <kbd><img style="margin-left:0px;border:0px solid blue;" 
      height='300' title="small"
-     src="./BellyButtons/static/img/bb-small.png" /></kbd>
+     src="./d3DataJournalismBonus/assets/img/bb-small.png" /></kbd>
 
 **Website for medium screen**  
 <kbd><img style="margin-left:0px;border:0px solid blue;" 
      height='300' title="medium"
-     src="./BellyButtons/static/img/bb-medium.png" /></kbd>
+     src="./d3DataJournalismBonus/assets/img/bb-medium.png" /></kbd>
 
 **Website for large screen**  
 <kbd><img style="margin-left:0px;border:0px solid blue;" 
      height='300' title="large"
-     src="./BellyButtons/static/img/bb-large.png" /></kbd>
+     src="./d3DataJournalismBonus/assets/img/bb-large.png" /></kbd>
