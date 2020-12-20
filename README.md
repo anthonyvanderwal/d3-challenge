@@ -1,7 +1,7 @@
 # d3-challenge
 - UWA Boot Camp Data Analytics
 - Homework Assignment 16 - D3 - Data Journalism
-- Anthony van der Wal - 09 January 2021
+- [Anthony van der Wal](https://anthonyvanderwal.github.io/my-first.html) - 09 January 2021.
 <br><br>
 
 ---
